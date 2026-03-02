@@ -129,8 +129,10 @@ pub fn check_runtime(project: &Project) -> Vec<Finding> {
         let server_types = service_server_types.get(&sidx).cloned().unwrap_or_default();
         let client_types = service_client_types.get(&sidx).cloned().unwrap_or_default();
         if !server_types.is_empty() && !client_types.is_empty() {
-            let server_set: std::collections::HashSet<String> = server_types.iter().cloned().collect();
-            let client_set: std::collections::HashSet<String> = client_types.iter().cloned().collect();
+            let server_set: std::collections::HashSet<String> =
+                server_types.iter().cloned().collect();
+            let client_set: std::collections::HashSet<String> =
+                client_types.iter().cloned().collect();
             if server_set != client_set {
                 findings.push(
                     Finding::new(

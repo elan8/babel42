@@ -206,13 +206,22 @@ mod tests {
         assert_eq!(m.format, 3);
         assert_eq!(m.name, "arduinobot_msgs");
         assert_eq!(m.maintainers.len(), 1);
-        assert_eq!(m.maintainers[0].email.as_deref(), Some("antonio.brandi@outlook.it"));
+        assert_eq!(
+            m.maintainers[0].email.as_deref(),
+            Some("antonio.brandi@outlook.it")
+        );
         assert_eq!(m.member_of_groups, ["rosidl_interface_packages"]);
         assert_eq!(m.build_types.len(), 1);
-        assert!(matches!(m.build_types[0], crate::model::BuildType::AmentCmake));
+        assert!(matches!(
+            m.build_types[0],
+            crate::model::BuildType::AmentCmake
+        ));
         let dep_names: Vec<_> = m.dependencies.iter().map(|d| &d.name).collect();
         assert!(dep_names.contains(&&"std_msgs".to_string()));
-        assert!(m.dependencies.iter().any(|d| d.role == DependencyRole::BuildTool && d.name == "ament_cmake"));
+        assert!(m
+            .dependencies
+            .iter()
+            .any(|d| d.role == DependencyRole::BuildTool && d.name == "ament_cmake"));
     }
 
     #[test]

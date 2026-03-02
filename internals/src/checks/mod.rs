@@ -143,12 +143,15 @@ mod integration_tests {
             }
 
             let workspace = discover_workspace(&path).unwrap_or_else(|| {
-                panic!("{}: failed to discover workspace at {}", name, path.display())
+                panic!(
+                    "{}: failed to discover workspace at {}",
+                    name,
+                    path.display()
+                )
             });
 
-            let project = build_project(&workspace).unwrap_or_else(|e| {
-                panic!("{}: build_project failed: {}", name, e)
-            });
+            let project = build_project(&workspace)
+                .unwrap_or_else(|e| panic!("{}: build_project failed: {}", name, e));
 
             let opts = CheckOpts::default();
             let findings = run_checks(&project, &opts);
@@ -174,12 +177,18 @@ mod integration_tests {
         // Print per-repo summary
         eprintln!("\n--- Integration test summary (errors / warnings / info) ---");
         for (name, errors, warnings, info) in &summaries {
-            eprintln!("  {:30} {} errors, {} warnings, {} info", name, errors, warnings, info);
+            eprintln!(
+                "  {:30} {} errors, {} warnings, {} info",
+                name, errors, warnings, info
+            );
         }
         let total_e = summaries.iter().map(|(_, e, _, _)| e).sum::<usize>();
         let total_w = summaries.iter().map(|(_, _, w, _)| w).sum::<usize>();
         let total_i = summaries.iter().map(|(_, _, _, i)| i).sum::<usize>();
-        eprintln!("  {:30} {} errors, {} warnings, {} info", "TOTAL", total_e, total_w, total_i);
+        eprintln!(
+            "  {:30} {} errors, {} warnings, {} info",
+            "TOTAL", total_e, total_w, total_i
+        );
         eprintln!("---------------------------------------------------------\n");
 
         // Print all specific findings per repo

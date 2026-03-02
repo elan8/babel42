@@ -22,17 +22,11 @@ pub fn scan_config_files(pkg_dir: &Path) -> Vec<ConfigFile> {
         if ext != Some("yaml") && ext != Some("yml") {
             continue;
         }
-        let rel = p
-            .strip_prefix(pkg_dir)
-            .unwrap_or(p)
-            .to_path_buf();
+        let rel = p.strip_prefix(pkg_dir).unwrap_or(p).to_path_buf();
         let content = std::fs::read_to_string(p)
             .ok()
             .and_then(|s| serde_yaml::from_str(&s).ok());
-        files.push(ConfigFile {
-            path: rel,
-            content,
-        });
+        files.push(ConfigFile { path: rel, content });
     }
     files
 }

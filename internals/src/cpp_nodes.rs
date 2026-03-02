@@ -185,15 +185,15 @@ fn extract_interface_from_call(node: &Node, src: &str) -> Option<CppNodeInterfac
 }
 
 /// Resolve executable name for a source path from CMake add_executables.
-fn resolve_executable(
-    rel_path: &Path,
-    cmake_info: Option<&CmakePackageInfo>,
-) -> Option<String> {
+fn resolve_executable(rel_path: &Path, cmake_info: Option<&CmakePackageInfo>) -> Option<String> {
     let cmake_info = cmake_info?;
     let path_str = rel_path.to_string_lossy();
     for (exe_name, sources) in &cmake_info.add_executables {
         let norm = path_str.replace('\\', "/");
-        if sources.iter().any(|s| norm.ends_with(s.trim_start_matches(&['.', '/'][..]))) {
+        if sources
+            .iter()
+            .any(|s| norm.ends_with(s.trim_start_matches(&['.', '/'][..])))
+        {
             return Some(exe_name.clone());
         }
     }
@@ -282,7 +282,9 @@ void foo(rclcpp::Node* node) {
         // well-formed create_* calls. This has no valid call.
         let src = "create_publisher<std_msgs::msg::String>(\"incomplete";
         let tree = parse_with_tree_sitter(src);
-        let ifaces = tree.map(|t| extract_interfaces(&t, src)).unwrap_or_default();
+        let ifaces = tree
+            .map(|t| extract_interfaces(&t, src))
+            .unwrap_or_default();
         // No regex: either we get nothing or tree-sitter finds a valid call
         assert!(ifaces.len() <= 1);
     }

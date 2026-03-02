@@ -60,10 +60,7 @@ pub fn parse_msg_str(content: &str, path: &Path) -> Result<MsgDefinition, String
         .unwrap_or("Unknown")
         .to_string();
 
-    let fields: Vec<FieldDef> = content
-        .lines()
-        .filter_map(parse_field_line)
-        .collect();
+    let fields: Vec<FieldDef> = content.lines().filter_map(parse_field_line).collect();
 
     Ok(MsgDefinition { name, fields })
 }
@@ -85,8 +82,14 @@ pub fn parse_srv_str(content: &str, path: &Path) -> Result<SrvDefinition, String
     let request_section = sections.get(0).copied().unwrap_or("");
     let response_section = sections.get(1).copied().unwrap_or("");
 
-    let request: Vec<FieldDef> = request_section.lines().filter_map(parse_field_line).collect();
-    let response: Vec<FieldDef> = response_section.lines().filter_map(parse_field_line).collect();
+    let request: Vec<FieldDef> = request_section
+        .lines()
+        .filter_map(parse_field_line)
+        .collect();
+    let response: Vec<FieldDef> = response_section
+        .lines()
+        .filter_map(parse_field_line)
+        .collect();
 
     Ok(SrvDefinition {
         name,
@@ -114,8 +117,14 @@ pub fn parse_action_str(content: &str, path: &Path) -> Result<ActionDefinition, 
     let feedback_section = sections.get(2).copied().unwrap_or("");
 
     let goal: Vec<FieldDef> = goal_section.lines().filter_map(parse_field_line).collect();
-    let result: Vec<FieldDef> = result_section.lines().filter_map(parse_field_line).collect();
-    let feedback: Vec<FieldDef> = feedback_section.lines().filter_map(parse_field_line).collect();
+    let result: Vec<FieldDef> = result_section
+        .lines()
+        .filter_map(parse_field_line)
+        .collect();
+    let feedback: Vec<FieldDef> = feedback_section
+        .lines()
+        .filter_map(parse_field_line)
+        .collect();
 
     Ok(ActionDefinition {
         name,

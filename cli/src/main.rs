@@ -2,11 +2,11 @@
 
 use std::path::PathBuf;
 
+use clap::Parser;
 use internals::{
     build_project, discover_workspace_with_config, findings_to_sarif, load_project_config,
     run_checks, CheckOpts, FailOn, RuleSet, Severity,
 };
-use clap::Parser;
 
 #[derive(Parser)]
 #[command(name = "babel42")]
@@ -105,19 +105,31 @@ fn run_analyze(root: &std::path::Path) -> Result<(), Box<dyn std::error::Error>>
         if !pkg.messages.is_empty() {
             println!(
                 "      msgs:   {}",
-                pkg.messages.iter().map(|m| m.name.as_str()).collect::<Vec<_>>().join(", ")
+                pkg.messages
+                    .iter()
+                    .map(|m| m.name.as_str())
+                    .collect::<Vec<_>>()
+                    .join(", ")
             );
         }
         if !pkg.services.is_empty() {
             println!(
                 "      srv:    {}",
-                pkg.services.iter().map(|s| s.name.as_str()).collect::<Vec<_>>().join(", ")
+                pkg.services
+                    .iter()
+                    .map(|s| s.name.as_str())
+                    .collect::<Vec<_>>()
+                    .join(", ")
             );
         }
         if !pkg.actions.is_empty() {
             println!(
                 "      action: {}",
-                pkg.actions.iter().map(|a| a.name.as_str()).collect::<Vec<_>>().join(", ")
+                pkg.actions
+                    .iter()
+                    .map(|a| a.name.as_str())
+                    .collect::<Vec<_>>()
+                    .join(", ")
             );
         }
         if let Some(ref cmake) = pkg.cmake_info {
@@ -127,26 +139,36 @@ fn run_analyze(root: &std::path::Path) -> Result<(), Box<dyn std::error::Error>>
         }
         if !pkg.xacro_files.is_empty() {
             for xf in &pkg.xacro_files {
-                println!("      xacro: {} (includes: {}, packages: {})",
+                println!(
+                    "      xacro: {} (includes: {}, packages: {})",
                     xf.path.display(),
                     xf.info.includes.len(),
-                    xf.info.package_refs.join(", "));
+                    xf.info.package_refs.join(", ")
+                );
             }
         }
         if !pkg.launch_files.is_empty() {
             for lf in &pkg.launch_files {
-                let includes: String = lf.info.included_launches
+                let includes: String = lf
+                    .info
+                    .included_launches
                     .iter()
                     .map(|(p, f)| format!("{}:{}", p, f))
                     .collect::<Vec<_>>()
                     .join(", ");
-                let nodes: String = lf.info.nodes
+                let nodes: String = lf
+                    .info
+                    .nodes
                     .iter()
                     .map(|n| format!("{}/{}", n.package, n.executable))
                     .collect::<Vec<_>>()
                     .join(", ");
-                println!("      launch: {} (includes: [{}], nodes: [{}])",
-                    lf.path.display(), includes, nodes);
+                println!(
+                    "      launch: {} (includes: [{}], nodes: [{}])",
+                    lf.path.display(),
+                    includes,
+                    nodes
+                );
             }
         }
     }
@@ -270,12 +292,27 @@ fn run_check(
                     println!("  Fix: {}", hint);
                 }
             }
-            let e = findings.iter().filter(|f| f.severity == Severity::Error).count();
-            let w = findings.iter().filter(|f| f.severity == Severity::Warn).count();
-            let i = findings.iter().filter(|f| f.severity == Severity::Info).count();
+            let e = findings
+                .iter()
+                .filter(|f| f.severity == Severity::Error)
+                .count();
+            let w = findings
+                .iter()
+                .filter(|f| f.severity == Severity::Warn)
+                .count();
+            let i = findings
+                .iter()
+                .filter(|f| f.severity == Severity::Info)
+                .count();
             if !findings.is_empty() {
                 println!();
-                println!("{} findings ({} error, {} warn, {} info)", findings.len(), e, w, i);
+                println!(
+                    "{} findings ({} error, {} warn, {} info)",
+                    findings.len(),
+                    e,
+                    w,
+                    i
+                );
             }
         }
     }

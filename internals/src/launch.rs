@@ -5,9 +5,9 @@
 use std::collections::HashSet;
 use std::fs;
 use std::path::Path;
+use thiserror::Error;
 use tree_sitter::{Node, Parser, Tree};
 use tree_sitter_python;
-use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum LaunchError {
@@ -113,7 +113,9 @@ fn get_call_name(node: &Node, src: &str) -> Option<String> {
 
 fn get_string_arg(node: &Node, src: &str) -> Option<String> {
     let text = src[node.byte_range()].trim();
-    let text = text.strip_prefix('"').and_then(|s| s.strip_suffix('"'))
+    let text = text
+        .strip_prefix('"')
+        .and_then(|s| s.strip_suffix('"'))
         .or_else(|| text.strip_prefix('\'').and_then(|s| s.strip_suffix('\'')))?;
     Some(text.to_string())
 }
@@ -171,7 +173,11 @@ fn extract_package_and_launch_from_join(node: &Node, src: &str) -> Option<(Strin
             }
             let pkg = pkg?;
             // Typically ["launch", "controller.launch.py"] or similar
-            let launch_file = strings.iter().filter(|s| s.ends_with(".launch.py")).next()?.clone();
+            let launch_file = strings
+                .iter()
+                .filter(|s| s.ends_with(".launch.py"))
+                .next()?
+                .clone();
             return Some((pkg, launch_file));
         }
     }
@@ -250,7 +256,9 @@ mod tests {
     fn parse_get_package_share_directory() {
         let s = r#"get_package_share_directory("arduinobot_controller")"#;
         let info = parse_launch_str(s).unwrap();
-        assert!(info.package_refs.contains(&"arduinobot_controller".to_string()));
+        assert!(info
+            .package_refs
+            .contains(&"arduinobot_controller".to_string()));
     }
 
     #[test]

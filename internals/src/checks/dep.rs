@@ -57,7 +57,10 @@ pub fn check_dep_with_config(project: &Project, config: Option<&Babel42Config>) 
                             line: None,
                             context: None,
                         })
-                        .with_fix_hint(format!("Add <{}>{}</{}> to package.xml", tag, fp_trim, tag)),
+                        .with_fix_hint(format!(
+                            "Add <{}>{}</{}> to package.xml",
+                            tag, fp_trim, tag
+                        )),
                     );
                 }
             }
@@ -66,10 +69,7 @@ pub fn check_dep_with_config(project: &Project, config: Option<&Babel42Config>) 
             for (target, deps) in &cmake.ament_target_deps {
                 for dep in deps {
                     let dep_trim = dep.trim();
-                    if dep_trim.is_empty()
-                        || dep_trim.starts_with('$')
-                        || dep_trim.contains("${")
-                    {
+                    if dep_trim.is_empty() || dep_trim.starts_with('$') || dep_trim.contains("${") {
                         continue;
                     }
                     let project_skip = config.map(|c| c.skip_packages.as_slice());
@@ -216,4 +216,3 @@ mod tests {
         assert!(fp_missing[0].message.contains("sensor_msgs"));
     }
 }
-

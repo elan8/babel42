@@ -31,9 +31,7 @@ pub fn discover_workspace_with_config(
     root: &Path,
     workspace_config: Option<&WorkspaceConfig>,
 ) -> Option<Workspace> {
-    let max_depth = workspace_config
-        .map(|c| c.max_depth as usize)
-        .unwrap_or(8);
+    let max_depth = workspace_config.map(|c| c.max_depth as usize).unwrap_or(8);
     discover_workspace_impl(root, max_depth)
 }
 
@@ -193,20 +191,19 @@ mod tests {
             r#"<?xml version="1.0"?><package format="2"><name>pkg1</name><version>1.0</version></package>"#,
         )
         .unwrap();
-        fs::write(
-            tmp.join("pkg2").join("COLCON_IGNORE"),
-            "",
-        )
-        .unwrap();
+        fs::write(tmp.join("pkg2").join("COLCON_IGNORE"), "").unwrap();
         fs::write(
             tmp.join("pkg2").join("pkg3").join("package.xml"),
             r#"<?xml version="1.0"?><package format="2"><name>pkg3</name><version>1.0</version></package>"#,
         )
         .unwrap();
         let ws = discover_workspace(&tmp).expect("should find workspace");
-        assert_eq!(ws.packages.len(), 1, "pkg2 and pkg3 should be skipped due to COLCON_IGNORE");
+        assert_eq!(
+            ws.packages.len(),
+            1,
+            "pkg2 and pkg3 should be skipped due to COLCON_IGNORE"
+        );
         assert!(ws.packages[0].to_string_lossy().contains("pkg1"));
         let _ = fs::remove_dir_all(&tmp);
     }
-
 }

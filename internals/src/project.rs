@@ -1,18 +1,17 @@
 //! Build Project model from discovered workspace.
 
 use crate::cmake::parse_cmake_lists;
-use crate::setup_py::parse_setup_py;
 use crate::config::scan_config_files;
 use crate::cpp_nodes::scan_cpp_nodes;
-use crate::python_nodes::scan_python_nodes;
 use crate::interfaces::{parse_action_file, parse_msg_file, parse_srv_file};
 use crate::launch::parse_launch_file;
 use crate::model::{
-    BuildType, DependencyEdge, DependencyRole, LaunchFile, LaunchIncludeGraph,
-    LaunchRef, Package, Project, RuntimeGraph, RuntimeNode, RuntimeService, RuntimeTopic,
-    XacroFile,
+    BuildType, DependencyEdge, DependencyRole, LaunchFile, LaunchIncludeGraph, LaunchRef, Package,
+    Project, RuntimeGraph, RuntimeNode, RuntimeService, RuntimeTopic, XacroFile,
 };
 use crate::package_xml::parse_package_xml;
+use crate::python_nodes::scan_python_nodes;
+use crate::setup_py::parse_setup_py;
 use crate::workspace::Workspace;
 use crate::xacro::parse_xacro_file;
 use petgraph::graph::DiGraph;
@@ -41,7 +40,10 @@ pub fn build_project(workspace: &Workspace) -> Result<Project, ProjectError> {
         let python_node_files = scan_python_nodes(pkg_dir, &manifest.name);
 
         let cmake_info = {
-            let has_ament_cmake = manifest.build_types.iter().any(|b| matches!(b, BuildType::AmentCmake))
+            let has_ament_cmake = manifest
+                .build_types
+                .iter()
+                .any(|b| matches!(b, BuildType::AmentCmake))
                 || manifest
                     .dependencies
                     .iter()
@@ -56,7 +58,10 @@ pub fn build_project(workspace: &Workspace) -> Result<Project, ProjectError> {
         let cpp_node_files = scan_cpp_nodes(pkg_dir, cmake_info.as_ref());
 
         let setup_py_info = {
-            let has_ament_python = manifest.build_types.iter().any(|b| matches!(b, BuildType::AmentPython))
+            let has_ament_python = manifest
+                .build_types
+                .iter()
+                .any(|b| matches!(b, BuildType::AmentPython))
                 || manifest
                     .dependencies
                     .iter()
@@ -169,7 +174,9 @@ fn scan_launch_files(pkg_dir: &Path) -> Vec<LaunchFile> {
         if entry.file_type().is_file() {
             let p = entry.path();
             if p.extension().map_or(false, |e| e == "py")
-                && p.file_stem().and_then(|s| s.to_str()).map_or(false, |s| s.ends_with(".launch"))
+                && p.file_stem()
+                    .and_then(|s| s.to_str())
+                    .map_or(false, |s| s.ends_with(".launch"))
             {
                 if let Ok(info) = parse_launch_file(p) {
                     let rel = p.strip_prefix(pkg_dir).unwrap_or(p).to_path_buf();
@@ -189,14 +196,8 @@ fn scan_xacro_files(pkg_dir: &Path) -> Vec<XacroFile> {
             let p = entry.path();
             if p.extension().map_or(false, |e| e == "xacro") {
                 if let Ok(info) = parse_xacro_file(p) {
-                    let rel = p
-                        .strip_prefix(pkg_dir)
-                        .unwrap_or(p)
-                        .to_path_buf();
-                    files.push(XacroFile {
-                        path: rel,
-                        info,
-                    });
+                    let rel = p.strip_prefix(pkg_dir).unwrap_or(p).to_path_buf();
+                    files.push(XacroFile { path: rel, info });
                 }
             }
         }
@@ -270,10 +271,16 @@ fn known_external_publishers(package: &str, executable: &str) -> Vec<(String, St
     let key = (package, executable);
     match key {
         ("joint_state_publisher_gui", "joint_state_publisher_gui") => {
-            vec![("joint_states".to_string(), "sensor_msgs/msg/JointState".to_string())]
+            vec![(
+                "joint_states".to_string(),
+                "sensor_msgs/msg/JointState".to_string(),
+            )]
         }
         ("joint_state_publisher", "joint_state_publisher") => {
-            vec![("joint_states".to_string(), "sensor_msgs/msg/JointState".to_string())]
+            vec![(
+                "joint_states".to_string(),
+                "sensor_msgs/msg/JointState".to_string(),
+            )]
         }
         _ => vec![],
     }
@@ -342,14 +349,14 @@ fn build_runtime_graph(packages: &[Package]) -> RuntimeGraph {
         msg_type: &str,
     ) -> usize {
         let key = normalize_topic(name);
-            *topic_key_to_idx.entry(key).or_insert_with(|| {
-                let idx = topics.len();
-                topics.push(RuntimeTopic {
-                    name: name.to_string(),
-                    msg_type: msg_type.to_string(),
-                });
-                idx
-            })
+        *topic_key_to_idx.entry(key).or_insert_with(|| {
+            let idx = topics.len();
+            topics.push(RuntimeTopic {
+                name: name.to_string(),
+                msg_type: msg_type.to_string(),
+            });
+            idx
+        })
     }
 
     fn ensure_service(
@@ -397,7 +404,8 @@ fn build_runtime_graph(packages: &[Package]) -> RuntimeGraph {
                 }
                 None => executable_from_path(&py_file.path),
             };
-            let node_idx = exec.and_then(|e| node_key_to_idx.get(&(pkg_name.to_string(), e)).copied());
+            let node_idx =
+                exec.and_then(|e| node_key_to_idx.get(&(pkg_name.to_string(), e)).copied());
             let Some(nidx) = node_idx else { continue };
 
             for iface in &py_file.interfaces {
@@ -449,7 +457,8 @@ fn build_runtime_graph(packages: &[Package]) -> RuntimeGraph {
                 .as_ref()
                 .cloned()
                 .or_else(|| executable_from_path(&cpp_file.path));
-            let node_idx = exec.and_then(|e| node_key_to_idx.get(&(pkg_name.to_string(), e)).copied());
+            let node_idx =
+                exec.and_then(|e| node_key_to_idx.get(&(pkg_name.to_string(), e)).copied());
             let Some(nidx) = node_idx else { continue };
 
             for iface in &cpp_file.interfaces {
@@ -521,12 +530,8 @@ fn build_runtime_graph(packages: &[Package]) -> RuntimeGraph {
                     let from_norm = normalize_topic(from_default);
                     for (from, to) in &n.remappings {
                         if normalize_topic(from) == from_norm {
-                            let to_idx = ensure_topic(
-                                &mut topics,
-                                &mut topic_key_to_idx,
-                                to,
-                                msg_type,
-                            );
+                            let to_idx =
+                                ensure_topic(&mut topics, &mut topic_key_to_idx, to, msg_type);
                             topic_publishers.push((nidx, to_idx));
                         }
                     }

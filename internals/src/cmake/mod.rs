@@ -3,7 +3,10 @@
 //! Extracts ROS2/ament-relevant commands: find_package, rosidl_generate_interfaces,
 //! ament_target_dependencies, install(DIRECTORY), etc.
 
-use crate::skip_config::{implicit_components_for, is_find_package_option, is_implicit_component_package, is_scope_keyword};
+use crate::skip_config::{
+    implicit_components_for, is_find_package_option, is_implicit_component_package,
+    is_scope_keyword,
+};
 use pest::iterators::Pair;
 use pest::Parser;
 use pest_derive::Parser;
@@ -277,9 +280,15 @@ find_package(std_msgs REQUIRED)
 )
 "#;
         let info = parse_cmake_lists_str(s).unwrap();
-        assert!(info.rosidl_interfaces.contains(&"AddTwoInts.srv".to_string()));
-        assert!(info.rosidl_interfaces.contains(&"EulerToQuaternion.srv".to_string()));
-        assert!(info.rosidl_interfaces.contains(&"Fibonacci.action".to_string()));
+        assert!(info
+            .rosidl_interfaces
+            .contains(&"AddTwoInts.srv".to_string()));
+        assert!(info
+            .rosidl_interfaces
+            .contains(&"EulerToQuaternion.srv".to_string()));
+        assert!(info
+            .rosidl_interfaces
+            .contains(&"Fibonacci.action".to_string()));
     }
 
     #[test]
@@ -348,7 +357,9 @@ find_package(octomap 1.9.7...<1.10.0 REQUIRED)
 "#;
         let info = parse_cmake_lists_str(s).unwrap();
         assert_eq!(info.find_package, ["TBB"]);
-        assert!(!info.find_package.contains(&"NO_CMAKE_PACKAGE_REGISTRY".to_string()));
+        assert!(!info
+            .find_package
+            .contains(&"NO_CMAKE_PACKAGE_REGISTRY".to_string()));
     }
 
     #[test]

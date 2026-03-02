@@ -62,8 +62,7 @@ pub fn scan_python_nodes(pkg_dir: &Path, _pkg_name: &str) -> Vec<PythonNodeFile>
             continue;
         }
         // Skip launch files
-        if p
-            .file_stem()
+        if p.file_stem()
             .and_then(|s| s.to_str())
             .map_or(false, |s| s.ends_with(".launch"))
         {
@@ -131,7 +130,10 @@ fn get_string_arg(node: &Node, src: &str) -> Option<String> {
 }
 
 /// Parsed args: positional strings + keyword map (arg_name -> value).
-fn get_call_args_full(node: &Node, src: &str) -> Option<(Vec<String>, std::collections::HashMap<String, String>)> {
+fn get_call_args_full(
+    node: &Node,
+    src: &str,
+) -> Option<(Vec<String>, std::collections::HashMap<String, String>)> {
     let args_node = node.child_by_field_name("arguments")?;
     let mut positional = Vec::new();
     let mut keyword = std::collections::HashMap::new();
@@ -281,5 +283,4 @@ def main():
         assert_eq!(ifaces[0].name, "fibonacci");
         assert!(ifaces[0].line.is_some());
     }
-
 }

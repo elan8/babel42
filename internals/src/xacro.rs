@@ -94,20 +94,14 @@ fn parse_include_filename(filename: &str) -> Option<(String, String)> {
     if let Some(rest) = trimmed.strip_prefix("$(find ") {
         if let Some(end) = rest.find(')') {
             let pkg = rest[..end].trim().to_string();
-            let path = rest[end + 1..]
-                .trim()
-                .trim_start_matches('/')
-                .to_string();
+            let path = rest[end + 1..].trim().trim_start_matches('/').to_string();
             return Some((pkg, path));
         }
     }
     if let Some(rest) = trimmed.strip_prefix("$(find-pkg ") {
         if let Some(end) = rest.find(')') {
             let pkg = rest[..end].trim().to_string();
-            let path = rest[end + 1..]
-                .trim()
-                .trim_start_matches('/')
-                .to_string();
+            let path = rest[end + 1..].trim().trim_start_matches('/').to_string();
             return Some((pkg, path));
         }
     }
@@ -289,7 +283,9 @@ mod tests {
         let info = parse_xacro_str(s).unwrap();
         assert_eq!(info.includes.len(), 1);
         assert_eq!(info.includes[0].0, "arduinobot_description");
-        assert!(info.package_refs.contains(&"arduinobot_description".to_string()));
+        assert!(info
+            .package_refs
+            .contains(&"arduinobot_description".to_string()));
     }
 
     #[test]
@@ -303,6 +299,8 @@ mod tests {
     </ros2_control>
 </robot>"#;
         let info = parse_xacro_str(s).unwrap();
-        assert!(info.ros2_control_plugins.contains(&"gazebo_ros2_control/GazeboSystem".to_string()));
+        assert!(info
+            .ros2_control_plugins
+            .contains(&"gazebo_ros2_control/GazeboSystem".to_string()));
     }
 }

@@ -19,7 +19,8 @@ pub fn check_launch(project: &Project) -> Vec<Finding> {
         );
     }
 
-    let workspace_packages: BTreeSet<&str> = project.package_index.keys().map(|s| s.as_str()).collect();
+    let workspace_packages: BTreeSet<&str> =
+        project.package_index.keys().map(|s| s.as_str()).collect();
 
     for pkg in &project.packages {
         for lf in &pkg.launch_files {
@@ -40,7 +41,10 @@ pub fn check_launch(project: &Project) -> Vec<Finding> {
                             line: None,
                             context: Some(format!("{}:{}", inc_pkg, inc_file)),
                         })
-                        .with_fix_hint(format!("Add {} to workspace or ensure it is installed", inc_pkg)),
+                        .with_fix_hint(format!(
+                            "Add {} to workspace or ensure it is installed",
+                            inc_pkg
+                        )),
                     );
                 }
             }

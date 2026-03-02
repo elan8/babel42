@@ -7,7 +7,12 @@ pub fn check_manifest(project: &Project) -> Vec<Finding> {
     let mut findings = Vec::new();
 
     for pkg in &project.packages {
-        if pkg.manifest.description.as_ref().map_or(true, |d| d.trim().is_empty()) {
+        if pkg
+            .manifest
+            .description
+            .as_ref()
+            .map_or(true, |d| d.trim().is_empty())
+        {
             findings.push(
                 Finding::new(
                     "manifest/missing_description",

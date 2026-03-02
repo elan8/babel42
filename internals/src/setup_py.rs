@@ -115,6 +115,9 @@ entry_points={"console_scripts": ["listener=py_pkg.listener:main"]}
         let s = "'talker=my_pkg.publisher:main',";
         let info = parse_setup_py_str(s);
         assert_eq!(info.entry_point_modules.len(), 1);
-        assert_eq!(info.entry_point_modules[0], ("talker".to_string(), "my_pkg.publisher".to_string()));
+        assert_eq!(
+            info.entry_point_modules[0],
+            ("talker".to_string(), "my_pkg.publisher".to_string())
+        );
     }
 }

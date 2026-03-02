@@ -6,15 +6,36 @@ use serde_json::json;
 
 /// Known rule IDs and their short descriptions for SARIF.
 const RULE_DESCRIPTIONS: &[(&str, &str)] = &[
-    ("dep/find_package_missing", "find_package(X) in CMake but not in package.xml"),
-    ("dep/ament_target_undeclared", "ament_target_dependencies references package not in package.xml"),
+    (
+        "dep/find_package_missing",
+        "find_package(X) in CMake but not in package.xml",
+    ),
+    (
+        "dep/ament_target_undeclared",
+        "ament_target_dependencies references package not in package.xml",
+    ),
     ("dep/circular", "Circular dependency in package graph"),
     ("launch/include_cycle", "Include cycle in launch file graph"),
-    ("launch/missing_package", "Included package not in workspace"),
-    ("runtime/topic_no_publisher", "Topic has subscriber(s) but no publishers"),
-    ("runtime/topic_no_subscriber", "Topic has publisher(s) but no subscribers"),
-    ("runtime/topic_type_mismatch", "Topic has publisher/subscriber type mismatch"),
-    ("runtime/service_type_mismatch", "Service has server/client type mismatch"),
+    (
+        "launch/missing_package",
+        "Included package not in workspace",
+    ),
+    (
+        "runtime/topic_no_publisher",
+        "Topic has subscriber(s) but no publishers",
+    ),
+    (
+        "runtime/topic_no_subscriber",
+        "Topic has publisher(s) but no subscribers",
+    ),
+    (
+        "runtime/topic_type_mismatch",
+        "Topic has publisher/subscriber type mismatch",
+    ),
+    (
+        "runtime/service_type_mismatch",
+        "Service has server/client type mismatch",
+    ),
     ("manifest/missing_description", "Package has no description"),
     ("manifest/no_maintainer", "Package has no maintainers"),
 ];
@@ -182,7 +203,10 @@ mod tests {
 
         let sarif = findings_to_sarif(&findings, &project);
         assert_eq!(sarif["version"], "2.1.0");
-        assert!(sarif["runs"][0]["tool"]["driver"]["name"].as_str().unwrap().contains("babel42"));
+        assert!(sarif["runs"][0]["tool"]["driver"]["name"]
+            .as_str()
+            .unwrap()
+            .contains("babel42"));
         assert_eq!(sarif["runs"][0]["results"].as_array().unwrap().len(), 1);
         assert_eq!(
             sarif["runs"][0]["results"][0]["ruleId"],
