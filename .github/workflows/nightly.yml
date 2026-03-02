@@ -36,7 +36,7 @@ jobs:
 
       - name: Integration tests
         env:
-          BABEL42_JSON_OUTPUT: integration-results.json
+          BABEL42_JSON_OUTPUT: ${{ github.workspace }}/integration-results.json
         run: |
           cargo test --all-features 2>&1 | tee integration-output.txt
 
