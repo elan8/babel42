@@ -1,5 +1,5 @@
 # Fetch Babel42 test fixture repositories (cloned into tests/fixtures/, gitignored)
-# Run from: products/babel42/oss or repo root
+# Run from: repo root
 
 $ErrorActionPreference = "Continue"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path

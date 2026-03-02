@@ -1,11 +1,11 @@
 # Babel42 Rule Reference
 
-Overzicht van alle checks en hun severity.
+Overview of all checks and their severity.
 
-| Rule ID | Severity | Beschrijving | Fix hint |
-|---------|----------|--------------|----------|
-| dep/find_package_missing | Error/Warn | find_package(X) in CMake maar niet in package.xml (Warn voor system libs) | Add \<depend\>X\</depend\> of \<test_depend\>X\</test_depend\> |
-| dep/ament_target_undeclared | Error/Warn | ament_target_dependencies references package not in package.xml (Warn voor system libs) | Add \<depend\>X\</depend\> of \<test_depend\>X\</test_depend\> |
+| Rule ID | Severity | Description | Fix hint |
+|---------|----------|-------------|----------|
+| dep/find_package_missing | Error/Warn | find_package(X) in CMake but not in package.xml (Warn for system libs) | Add \<depend\>X\</depend\> or \<test_depend\>X\</test_depend\> |
+| dep/ament_target_undeclared | Error/Warn | ament_target_dependencies references package not in package.xml (Warn for system libs) | Add \<depend\>X\</depend\> or \<test_depend\>X\</test_depend\> |
 | dep/circular | Error | Circular dependency in package graph | Remove circular dependency |
 | launch/include_cycle | Error | Include cycle in launch file graph (A includes B, B includes A) | Remove circular includes |
 | launch/missing_package | Warn | Included package not in workspace | Add package to workspace or ensure installed |
@@ -18,14 +18,14 @@ Overzicht van alle checks en hun severity.
 
 ## Test-only packages
 
-De volgende packages krijgen automatisch een \<test_depend\> fix hint in plaats van \<depend\>:
+The following packages automatically get a \<test_depend\> fix hint instead of \<depend\>:
 
 - ament_cmake_gtest
 - ament_cmake_gmock
 
 ## System/vendor packages
 
-De volgende packages worden nog steeds gerapporteerd bij find_package_missing of ament_target_undeclared, maar met **Warn** in plaats van Error (via rosdep/system):
+The following packages are still reported for find_package_missing or ament_target_undeclared, but with **Warn** instead of Error (via rosdep/system):
 
 - yaml-cpp, TBB, nanoflann, nlohmann_json
 - graphicsmagickcpp, bond, bondcpp

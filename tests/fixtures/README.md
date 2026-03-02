@@ -17,28 +17,28 @@ These workspaces are used to validate babel42 on real-world ROS2 projects.
 
 ## Fetching fixtures
 
-The fixture repos are **not** included in the repo (gitignored). Clone them with:
+The fixture repos are **not** included in the repo (gitignored). Clone them from the repo root:
 
 ```powershell
 # Windows (PowerShell)
-cd products/babel42/oss
 ./scripts/fetch_fixtures.ps1
 ```
 
 ```bash
 # Linux / macOS
-cd products/babel42/oss
 ./scripts/fetch_fixtures.sh
 ```
 
 ## Running babel42
 
+From the repo root:
+
 ```bash
 # Analyze a fixture
-babel42 analyze products/babel42/oss/tests/fixtures/demos
+babel42 analyze tests/fixtures/demos
 
 # Check for issues
-babel42 check products/babel42/oss/tests/fixtures/demos
+babel42 check tests/fixtures/demos
 ```
 
 ## Integration test
@@ -46,7 +46,6 @@ babel42 check products/babel42/oss/tests/fixtures/demos
 After fetching fixtures, run the integration test that validates all fixtures:
 
 ```bash
-cd products/babel42
 cargo test integration_all_fixtures_analyze_and_check
 ```
 

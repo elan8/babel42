@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Fetch Babel42 test fixture repositories (cloned into tests/fixtures/, gitignored)
-# Run from: products/babel42/oss or repo root
+# Run from: repo root
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

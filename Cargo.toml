@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["babel42-core", "babel42"]
+members = ["internals", "cli"]
 
 [workspace.dependencies]
 serde = { version = "1", features = ["derive"] }
@@ -16,3 +16,4 @@ tree-sitter = "0.25"
 tree-sitter-python = "0.25"
 tree-sitter-cpp = "0.23"
 regex = "1"
+chrono = { version = "0.4", features = ["serde"] }

@@ -1,8 +1,10 @@
 [package]
-name = "babel42-core"
+name = "internals"
 version = "0.1.0"
 edition = "2021"
 description = "Core ROS2 project analysis: workspace discovery, package.xml parsing"
+license = "MIT"
+repository = "https://github.com/elan8/babel42"
 
 [dependencies]
 serde = { workspace = true }
@@ -18,3 +20,4 @@ tree-sitter-python = { workspace = true }
 tree-sitter-cpp = { workspace = true }
 serde_yaml = { workspace = true }
 regex = { workspace = true }
+chrono = { workspace = true }

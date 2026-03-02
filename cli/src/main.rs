@@ -2,7 +2,7 @@
 
 use std::path::PathBuf;
 
-use babel42_core::{
+use internals::{
     build_project, discover_workspace_with_config, findings_to_sarif, load_project_config,
     run_checks, CheckOpts, FailOn, RuleSet, Severity,
 };

@@ -42,6 +42,31 @@ mod integration_tests {
     use crate::workspace::discover_workspace;
     use std::path::PathBuf;
 
+    #[derive(serde::Serialize)]
+    struct RepoSummary {
+        name: String,
+        errors: usize,
+        warnings: usize,
+        info: usize,
+    }
+
+    #[derive(serde::Serialize)]
+    struct RepoFindings {
+        name: String,
+        findings: Vec<Finding>,
+    }
+
+    #[derive(serde::Serialize)]
+    struct IntegrationReport {
+        generated_at: String,
+        summary: Vec<RepoSummary>,
+        total_errors: usize,
+        total_warnings: usize,
+        total_info: usize,
+        repos: Vec<RepoFindings>,
+        skipped: Vec<String>,
+    }
+
     fn fixtures_root() -> PathBuf {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("..")
@@ -143,7 +168,7 @@ mod integration_tests {
 
         assert!(
             ran > 0,
-            "No fixtures found. Run: products/babel42/oss/scripts/fetch_fixtures.ps1 or fetch_fixtures.sh"
+            "No fixtures found. Run: scripts/fetch_fixtures.ps1 or scripts/fetch_fixtures.sh"
         );
 
         // Print per-repo summary
@@ -175,6 +200,38 @@ mod integration_tests {
                 "Skipped (not fetched): {}. Run: scripts/fetch_fixtures.ps1 or fetch_fixtures.sh",
                 skipped.join(", ")
             );
+        }
+
+        // Write JSON report when BABEL42_JSON_OUTPUT is set (e.g. in CI)
+        if let Ok(path) = std::env::var("BABEL42_JSON_OUTPUT") {
+            let total_e = summaries.iter().map(|(_, e, _, _)| e).sum::<usize>();
+            let total_w = summaries.iter().map(|(_, _, w, _)| w).sum::<usize>();
+            let total_i = summaries.iter().map(|(_, _, _, i)| i).sum::<usize>();
+            let report = IntegrationReport {
+                generated_at: chrono::Utc::now().to_rfc3339(),
+                summary: summaries
+                    .iter()
+                    .map(|(n, e, w, i)| RepoSummary {
+                        name: (*n).to_string(),
+                        errors: *e,
+                        warnings: *w,
+                        info: *i,
+                    })
+                    .collect(),
+                total_errors: total_e,
+                total_warnings: total_w,
+                total_info: total_i,
+                repos: all_findings
+                    .iter()
+                    .map(|(n, f)| RepoFindings {
+                        name: (*n).to_string(),
+                        findings: f.clone(),
+                    })
+                    .collect(),
+                skipped: skipped.iter().map(|s| (*s).to_string()).collect(),
+            };
+            let json = serde_json::to_string_pretty(&report).expect("serialize report");
+            std::fs::write(&path, json).unwrap_or_else(|e| panic!("write {}: {}", path, e));
         }
     }
 
