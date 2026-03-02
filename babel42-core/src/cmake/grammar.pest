@@ -1,0 +1,51 @@
+// CMake language grammar (subset) — based on cmake-language(7)
+// Handles: command invocations, quoted/unquoted arguments, nested parens,
+// line comments. Bracket args/comments simplified.
+
+file = { SOI ~ element* ~ EOI }
+
+element = {
+    bracket_comment
+    | line_comment ~ newline
+    | space* ~ command ~ (space | newline)*
+}
+
+// #[[ ... ]] — bracket comment (length 0)
+bracket_comment = { "#[[" ~ (!"]]" ~ ANY)* ~ "]]" }
+
+line_comment = { "#" ~ (!newline ~ ANY)* }
+
+command = { identifier ~ space* ~ "(" ~ arguments ~ ")" }
+
+identifier = @{ ("_" | ASCII_ALPHA) ~ ("_" | ASCII_ALPHANUMERIC)* }
+
+// Arguments: nested ( ), quoted "...", or unquoted; separated by space/newline
+arguments = {
+    ( arg_sep | arg_or_nested )*
+}
+
+arg_sep = { space+ | newline }
+
+arg_or_nested = { "(" ~ arguments ~ ")" | argument }
+
+argument = { quoted_argument | unquoted_argument }
+
+// Quoted: "..." with \" \\ \n and line continuation
+quoted_argument = {
+    "\""
+    ~ ( escape_seq | "\\" ~ newline | !"\"" ~ !"\\" ~ ANY )*
+    ~ "\""
+}
+
+unquoted_argument = @{
+    ( unquoted_char+ | escape_seq )+
+}
+
+unquoted_char = {
+    !(space | newline | "(" | ")" | "#" | "\"" | "\\") ~ ANY
+}
+
+escape_seq = { "\\" ~ ("t" | "r" | "n" | ";" | " " | "\\" | "(" | ")" | "#" | "\"" | "$" | "\t" | "\n" | "\r" | ANY) }
+
+space = _{ " " | "\t" }
+newline = _{ "\n" | "\r\n" }

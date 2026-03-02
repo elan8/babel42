@@ -1,0 +1,14 @@
+.DS_Store
+/target
+
+# Fixture repos (cloned by scripts/fetch_fixtures)
+/tests/fixtures/moveit2_robot_arm
+/tests/fixtures/examples
+/tests/fixtures/demos
+/tests/fixtures/Universal_Robots_ROS2_Driver
+/tests/fixtures/tutorials
+/tests/fixtures/ament_cmake
+/tests/fixtures/ros2_control
+/tests/fixtures/navigation2
+/tests/fixtures/slam_toolbox
+/tests/fixtures/moveit2

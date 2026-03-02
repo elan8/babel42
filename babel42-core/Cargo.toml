@@ -1,0 +1,20 @@
+[package]
+name = "babel42-core"
+version = "0.1.0"
+edition = "2021"
+description = "Core ROS2 project analysis: workspace discovery, package.xml parsing"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+walkdir = { workspace = true }
+quick-xml = { workspace = true }
+petgraph = { workspace = true }
+pest = { workspace = true }
+pest_derive = { workspace = true }
+tree-sitter = { workspace = true }
+tree-sitter-python = { workspace = true }
+tree-sitter-cpp = { workspace = true }
+serde_yaml = { workspace = true }
+regex = { workspace = true }

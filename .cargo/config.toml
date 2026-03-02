@@ -1,0 +1,4 @@
+# Optional: uncomment to fail the build on warnings locally.
+# CI can enforce -D warnings in a clippy job.
+# [build]
+# rustflags = ["-D", "warnings"]
