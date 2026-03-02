@@ -1,0 +1,69 @@
+[1m[92m    Updating[0m crates.io index
+[1m[92m   Compiling[0m internals v0.1.0 (/home/runner/work/babel42/babel42/internals)
+[1m[92m   Compiling[0m cli v0.1.0 (/home/runner/work/babel42/babel42/cli)
+[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 3.28s
+[1m[92m     Running[0m unittests src/main.rs (target/debug/deps/babel42-00f0ecffd1a3bb05)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/internals-3bbdd3a639bef740)
+
+running 47 tests
+test checks::dep::tests::find_package_missing_reported ... ok
+test checks::manifest::tests::missing_description_reported ... ok
+test checks::sarif::tests::findings_to_sarif_produces_valid_structure ... ok
+test cmake::tests::parse_add_executable ... ok
+test cmake::tests::parse_ament_target_dependencies ... ok
+test cmake::tests::parse_ament_target_dependencies_skips_scope ... ok
+test cmake::tests::parse_find_package ... ok
+test cmake::tests::parse_find_package_boost_components_without_keyword ... ok
+test cmake::tests::parse_find_package_components_skipped ... ok
+test cmake::tests::parse_find_package_qt5_without_components_keyword ... ok
+test cmake::tests::parse_find_package_skips_no_cmake_package_registry ... ok
+test cmake::tests::parse_find_package_skips_version ... ok
+test cmake::tests::parse_install_directories ... ok
+test cmake::tests::parse_rosidl_generate_interfaces ... ok
+test cpp_nodes::tests::create_action_server ... ok
+test cpp_nodes::tests::create_publisher_template ... ok
+test cpp_nodes::tests::no_regex_fallback ... ok
+test interfaces::tests::parse_action_fibonacci ... ok
+test interfaces::tests::parse_field_fixed_array ... ok
+test interfaces::tests::parse_field_ignores_comments ... ok
+test interfaces::tests::parse_field_primitive ... ok
+test interfaces::tests::parse_field_unbounded_array ... ok
+test interfaces::tests::parse_srv_addtwoints ... ok
+test launch::tests::parse_get_package_share_directory ... ok
+test launch::tests::parse_include_launch_description ... ok
+test launch::tests::parse_node ... ok
+test launch::tests::parse_node_with_remappings ... ok
+test package_xml::tests::parse_format3_arduinobot_msgs ... ok
+test package_xml::tests::parse_run_depend ... ok
+test python_nodes::tests::create_action_server ... ok
+test python_nodes::tests::keyword_args_publisher ... ok
+test setup_py::tests::parse_double_quoted ... ok
+test setup_py::tests::parse_empty ... ok
+test setup_py::tests::parse_entry_point_modules ... ok
+test setup_py::tests::parse_hyphen_in_name ... ok
+test setup_py::tests::parse_simple_entry_points ... ok
+test workspace::tests::discover_workspace_empty_dir_returns_none ... ok
+test workspace::tests::discover_workspace_finds_packages ... ok
+test workspace::tests::discover_workspace_flat_layout ... ok
+test workspace::tests::discover_workspace_root_as_package ... ok
+test workspace::tests::discover_workspace_root_as_package_with_nested ... ok
+test workspace::tests::discover_workspace_skips_colcon_ignore ... ok
+test xacro::tests::parse_include_and_refs ... ok
+test xacro::tests::parse_ros2_control_plugin_text ... ok
+test checks::integration_tests::check_moveit2_fixture_runs ... ok
+test checks::integration_tests::integration_all_fixtures_analyze_and_check ... ok
+test checks::integration_tests::check_ros2_github_fixtures_run ... ok
+
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.72s
+
+[1m[92m   Doc-tests[0m internals
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

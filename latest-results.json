@@ -1,0 +1,701 @@
+{
+  "generated_at": "2026-03-02T18:58:46.222748905+00:00",
+  "summary": [
+    {
+      "name": "moveit2_robot_arm",
+      "errors": 0,
+      "warnings": 2,
+      "info": 0
+    },
+    {
+      "name": "examples",
+      "errors": 0,
+      "warnings": 0,
+      "info": 0
+    },
+    {
+      "name": "demos",
+      "errors": 3,
+      "warnings": 0,
+      "info": 0
+    },
+    {
+      "name": "tutorials",
+      "errors": 0,
+      "warnings": 0,
+      "info": 0
+    },
+    {
+      "name": "Universal_Robots_ROS2_Driver",
+      "errors": 3,
+      "warnings": 4,
+      "info": 0
+    },
+    {
+      "name": "ament_cmake",
+      "errors": 0,
+      "warnings": 0,
+      "info": 0
+    },
+    {
+      "name": "navigation2",
+      "errors": 13,
+      "warnings": 10,
+      "info": 0
+    },
+    {
+      "name": "moveit2",
+      "errors": 20,
+      "warnings": 1,
+      "info": 0
+    },
+    {
+      "name": "ros2_control",
+      "errors": 0,
+      "warnings": 0,
+      "info": 0
+    },
+    {
+      "name": "slam_toolbox",
+      "errors": 2,
+      "warnings": 1,
+      "info": 0
+    }
+  ],
+  "total_errors": 41,
+  "total_warnings": 18,
+  "total_info": 0,
+  "repos": [
+    {
+      "name": "moveit2_robot_arm",
+      "findings": [
+        {
+          "rule_id": "launch/missing_package",
+          "severity": "warn",
+          "message": "Included package 'arduinobot_remote' (in remote_interface.launch.py) not in workspace",
+          "location": {
+            "package": "arduinobot_bringup",
+            "file": "launch/real_robot.launch.py",
+            "context": "arduinobot_remote:remote_interface.launch.py"
+          },
+          "fix_hint": "Add arduinobot_remote to workspace or ensure it is installed"
+        },
+        {
+          "rule_id": "launch/missing_package",
+          "severity": "warn",
+          "message": "Included package 'arduinobot_remote' (in remote_interface.launch.py) not in workspace",
+          "location": {
+            "package": "arduinobot_bringup",
+            "file": "launch/simulated_robot.launch.py",
+            "context": "arduinobot_remote:remote_interface.launch.py"
+          },
+          "fix_hint": "Add arduinobot_remote to workspace or ensure it is installed"
+        }
+      ]
+    },
+    {
+      "name": "examples",
+      "findings": []
+    },
+    {
+      "name": "demos",
+      "findings": [
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rmw) in CMake but not in package.xml",
+          "location": {
+            "package": "dummy_sensors",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rmw</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rmw) in CMake but not in package.xml",
+          "location": {
+            "package": "dummy_map_server",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rmw</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rmw) in CMake but not in package.xml",
+          "location": {
+            "package": "demo_nodes_cpp_native",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rmw</depend> to package.xml"
+        }
+      ]
+    },
+    {
+      "name": "tutorials",
+      "findings": []
+    },
+    {
+      "name": "Universal_Robots_ROS2_Driver",
+      "findings": [
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(ament_cmake_gmock) in CMake but not in package.xml",
+          "location": {
+            "package": "ur_controllers",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <test_depend>ament_cmake_gmock</test_depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(builtin_interfaces) in CMake but not in package.xml",
+          "location": {
+            "package": "ur_dashboard_msgs",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>builtin_interfaces</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rclcpp_action) in CMake but not in package.xml",
+          "location": {
+            "package": "ur_robot_driver",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rclcpp_action</depend> to package.xml"
+        },
+        {
+          "rule_id": "runtime/topic_no_publisher",
+          "severity": "warn",
+          "message": "Topic 'io_and_status_controller/robot_mode' has 1 subscriber(s) but no publishers",
+          "location": {
+            "context": "msg_type: ur_dashboard_msgs/msg/RobotMode"
+          }
+        },
+        {
+          "rule_id": "runtime/topic_no_publisher",
+          "severity": "warn",
+          "message": "Topic 'io_and_status_controller/safety_mode' has 1 subscriber(s) but no publishers",
+          "location": {
+            "context": "msg_type: ur_dashboard_msgs/msg/SafetyMode"
+          }
+        },
+        {
+          "rule_id": "runtime/topic_no_publisher",
+          "severity": "warn",
+          "message": "Topic 'io_and_status_controller/robot_program_running' has 2 subscriber(s) but no publishers",
+          "location": {
+            "context": "msg_type: std_msgs/msg/Bool"
+          }
+        },
+        {
+          "rule_id": "runtime/topic_no_publisher",
+          "severity": "warn",
+          "message": "Topic '~/script_command' has 1 subscriber(s) but no publishers",
+          "location": {
+            "context": "msg_type: std_msgs/msg/String"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ament_cmake",
+      "findings": []
+    },
+    {
+      "name": "navigation2",
+      "findings": [
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(ament_cmake_gtest) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_amcl",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <test_depend>ament_cmake_gtest</test_depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rclcpp_components) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_route",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rclcpp_components</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(nanoflann) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_route",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>nanoflann</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(nlohmann_json) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_route",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>nlohmann_json</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(yaml-cpp) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_rviz_plugins",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>yaml-cpp</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(ament_cmake_gtest) in CMake but not in package.xml",
+          "location": {
+            "package": "opennav_docking_bt",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <test_depend>ament_cmake_gtest</test_depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(yaml-cpp) in CMake but not in package.xml",
+          "location": {
+            "package": "opennav_docking",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>yaml-cpp</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(bond) in CMake but not in package.xml",
+          "location": {
+            "package": "opennav_docking",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>bond</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(nav_msgs) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_regulated_pure_pursuit_controller",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>nav_msgs</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(std_msgs) in CMake but not in package.xml",
+          "location": {
+            "package": "dwb_core",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>std_msgs</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rosidl_default_generators) in CMake but not in package.xml",
+          "location": {
+            "package": "dwb_msgs",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rosidl_default_generators</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(nav2_ros_common) in CMake but not in package.xml",
+          "location": {
+            "package": "nav_2d_utils",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>nav2_ros_common</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rclcpp_lifecycle) in CMake but not in package.xml",
+          "location": {
+            "package": "nav_2d_utils",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rclcpp_lifecycle</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(bondcpp) in CMake but not in package.xml",
+          "location": {
+            "package": "nav_2d_utils",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>bondcpp</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(angles) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_system_tests",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>angles</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(behaviortree_cpp) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_system_tests",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>behaviortree_cpp</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(pluginlib) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_system_tests",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>pluginlib</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(nlohmann_json) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_smac_planner",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>nlohmann_json</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(GRAPHICSMAGICKCPP) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_map_server",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>GRAPHICSMAGICKCPP</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rclcpp_components) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_map_server",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rclcpp_components</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(yaml-cpp) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_map_server",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>yaml-cpp</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(nav_msgs) in CMake but not in package.xml",
+          "location": {
+            "package": "nav2_rotation_shim_controller",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>nav_msgs</depend> to package.xml"
+        },
+        {
+          "rule_id": "manifest/missing_description",
+          "severity": "warn",
+          "message": "Package 'nav2_amcl' has no description",
+          "location": {
+            "package": "nav2_amcl",
+            "file": "package.xml"
+          },
+          "fix_hint": "Add <description>...</description> to package.xml"
+        }
+      ]
+    },
+    {
+      "name": "moveit2",
+      "findings": [
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(moveit_common) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_setup_srdf_plugins",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>moveit_common</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(moveit_common) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_setup_assistant",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>moveit_common</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(moveit_common) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_setup_core_plugins",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>moveit_common</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(moveit_common) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_setup_app_plugins",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>moveit_common</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(moveit_common) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_setup_controllers",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>moveit_common</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(moveit_ros_warehouse) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_trajectory_cache",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>moveit_ros_warehouse</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(tf2) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_trajectory_cache",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>tf2</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(warehouse_ros) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_trajectory_cache",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>warehouse_ros</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(moveit_ros_planning) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_visualization",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>moveit_ros_planning</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(moveit_msgs) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_visualization",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>moveit_msgs</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(moveit_core) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_visualization",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>moveit_core</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(octomap_msgs) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_visualization",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>octomap_msgs</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rclcpp_action) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_visualization",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rclcpp_action</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rviz_common) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_visualization",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rviz_common</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rviz_default_plugins) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_visualization",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rviz_default_plugins</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rviz_ogre_vendor) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_ros_visualization",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rviz_ogre_vendor</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(kdl_parser) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_kinematics",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>kdl_parser</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(orocos_kdl) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_kinematics",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>orocos_kdl</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(random_numbers) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_kinematics",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>random_numbers</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rclcpp) in CMake but not in package.xml",
+          "location": {
+            "package": "moveit_kinematics",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rclcpp</depend> to package.xml"
+        },
+        {
+          "rule_id": "manifest/missing_description",
+          "severity": "warn",
+          "message": "Package 'moveit_resources_prbt_moveit_config' has no description",
+          "location": {
+            "package": "moveit_resources_prbt_moveit_config",
+            "file": "package.xml"
+          },
+          "fix_hint": "Add <description>...</description> to package.xml"
+        }
+      ]
+    },
+    {
+      "name": "ros2_control",
+      "findings": []
+    },
+    {
+      "name": "slam_toolbox",
+      "findings": [
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rclcpp) in CMake but not in package.xml",
+          "location": {
+            "package": "karto_sdk",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rclcpp</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "error",
+          "message": "find_package(rclcpp_lifecycle) in CMake but not in package.xml",
+          "location": {
+            "package": "karto_sdk",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>rclcpp_lifecycle</depend> to package.xml"
+        },
+        {
+          "rule_id": "dep/find_package_missing",
+          "severity": "warn",
+          "message": "find_package(TBB) in CMake but not in package.xml",
+          "location": {
+            "package": "karto_sdk",
+            "file": "CMakeLists.txt"
+          },
+          "fix_hint": "Add <depend>TBB</depend> to package.xml"
+        }
+      ]
+    }
+  ],
+  "skipped": []
+}
