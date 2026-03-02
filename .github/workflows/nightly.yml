@@ -1,0 +1,69 @@
+# Nightly integration tests + publish results to GitHub Pages
+# Integration results (JSON): https://elan8.github.io/babel42/latest-results.json
+#
+# Enable GitHub Pages: Settings → Pages → Source: Deploy from branch → gh-pages.
+
+name: Nightly Integration
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 02:00 UTC daily
+  workflow_dispatch:
+
+concurrency:
+  group: babel42-nightly
+  cancel-in-progress: false
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: "babel42"
+
+      - name: Fetch fixtures
+        run: ./scripts/fetch_fixtures.sh
+
+      - name: Integration tests
+        env:
+          BABEL42_JSON_OUTPUT: integration-results.json
+        run: |
+          cargo test --all-features 2>&1 | tee integration-output.txt
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-results-${{ github.run_number }}
+          path: |
+            integration-output.txt
+            integration-results.json
+
+      - name: Prepare GitHub Pages
+        run: |
+          mkdir -p public
+          cp integration-results.json public/latest-results.json
+          cp integration-output.txt public/latest-results.txt
+          echo "<!DOCTYPE html><html><head><title>Babel42 Integration Results</title></head><body>" > public/index.html
+          echo "<h1>Babel42 Integration Results</h1>" >> public/index.html
+          echo "<p>Latest run: $(date -u +%Y-%m-%dT%H:%M:%SZ)</p>" >> public/index.html
+          echo '<p><a href="latest-results.json">latest-results.json</a> (for website integration)</p>' >> public/index.html
+          echo '<p><a href="latest-results.txt">latest-results.txt</a> (human-readable)</p>' >> public/index.html
+          echo "</body></html>" >> public/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          keep_files: false
+

@@ -1,6 +1,4 @@
-# Unit tests on every push/PR; integration tests nightly.
-# Integration results: https://elan8.github.io/babel42/latest-results.json (for website)
-# Enable GitHub Pages: Settings → Pages → Source: Deploy from branch → gh-pages.
+# CI on every push/PR.
 
 name: CI
 
@@ -9,8 +7,6 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  schedule:
-    - cron: '0 2 * * *'  # 02:00 UTC daily
 
 jobs:
   unit:
@@ -25,7 +21,7 @@ jobs:
           components: clippy, rustfmt
 
       - name: Cache dependencies
-        uses: Swatinem/rust-cache@2
+        uses: Swatinem/rust-cache@v2
         with:
           shared-key: "babel42"
 
@@ -37,56 +33,3 @@ jobs:
 
       - name: Unit tests
         run: cargo test --all-features -- --skip integration_all_fixtures
-
-  integration:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'schedule'
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Cache dependencies
-        uses: Swatinem/rust-cache@2
-        with:
-          shared-key: "babel42"
-
-      - name: Fetch fixtures
-        run: ./scripts/fetch_fixtures.sh
-
-      - name: Integration tests
-        env:
-          BABEL42_JSON_OUTPUT: integration-results.json
-        run: |
-          cargo test --all-features 2>&1 | tee integration-output.txt
-
-      - name: Upload results
-        uses: actions/upload-artifact@4
-        with:
-          name: integration-results-${{ github.run_number }}
-          path: |
-            integration-output.txt
-            integration-results.json
-
-      - name: Prepare GitHub Pages
-        run: |
-          mkdir -p public
-          cp integration-results.json public/latest-results.json
-          cp integration-output.txt public/latest-results.txt
-          echo "<!DOCTYPE html><html><head><title>Babel42 Integration Results</title></head><body>" > public/index.html
-          echo "<h1>Babel42 Integration Results</h1>" >> public/index.html
-          echo "<p>Latest run: $(date -u +%Y-%m-%dT%H:%M:%SZ)</p>" >> public/index.html
-          echo '<p><a href="latest-results.json">latest-results.json</a> (for website integration)</p>' >> public/index.html
-          echo '<p><a href="latest-results.txt">latest-results.txt</a> (human-readable)</p>' >> public/index.html
-          echo "</body></html>" >> public/index.html
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          keep_files: false

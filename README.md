@@ -59,21 +59,6 @@ Example GitHub Actions workflow:
 
 This repo includes [.github/workflows/ci.yml](.github/workflows/ci.yml): unit tests and fmt/clippy on every push/PR, integration tests nightly.
 
-## Integration Results
-
-Nightly integration results are available as JSON for website integration:
-
-- **JSON**: [https://elan8.github.io/babel42/latest-results.json](https://elan8.github.io/babel42/latest-results.json)
-- **Overview**: [https://elan8.github.io/babel42/](https://elan8.github.io/babel42/)
-
-Fetch example:
-
-```javascript
-const res = await fetch('https://elan8.github.io/babel42/latest-results.json');
-const data = await res.json();
-// data.summary, data.repos, data.total_errors, etc.
-```
-
 ## Test Fixtures
 
 Fixture repos are gitignored. Clone them with `scripts/fetch_fixtures.ps1` (Windows) or `scripts/fetch_fixtures.sh` (Linux/macOS). See [tests/fixtures/README.md](tests/fixtures/README.md) for the full list and integration test instructions.
