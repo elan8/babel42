@@ -141,14 +141,12 @@ pub fn parse_xacro_str(content: &str) -> Result<XacroFileInfo, String> {
                     && elem_stack.contains(&"hardware".to_string());
 
                 attrs.clear();
-                for attr in e.attributes() {
-                    if let Ok(a) = attr {
-                        let k = String::from_utf8_lossy(a.key.local_name().as_ref()).into_owned();
-                        let v = String::from_utf8_lossy(a.value.as_ref()).into_owned();
-                        attrs.push((k.clone(), v.clone()));
-                        for r in extract_package_refs(&v) {
-                            package_refs_set.insert(r);
-                        }
+                for a in e.attributes().flatten() {
+                    let k = String::from_utf8_lossy(a.key.local_name().as_ref()).into_owned();
+                    let v = String::from_utf8_lossy(a.value.as_ref()).into_owned();
+                    attrs.push((k.clone(), v.clone()));
+                    for r in extract_package_refs(&v) {
+                        package_refs_set.insert(r);
                     }
                 }
 
@@ -223,33 +221,31 @@ pub fn parse_xacro_str(content: &str) -> Result<XacroFileInfo, String> {
                     .map(|p| String::from_utf8_lossy(p.as_ref()).into_owned())
                     .unwrap_or_default();
                 attrs.clear();
-                for attr in e.attributes() {
-                    if let Ok(a) = attr {
-                        let k = String::from_utf8_lossy(a.key.local_name().as_ref()).into_owned();
-                        let v = String::from_utf8_lossy(a.value.as_ref()).into_owned();
-                        attrs.push((k.clone(), v.clone()));
-                        for r in extract_package_refs(&v) {
-                            package_refs_set.insert(r);
-                        }
-                        match (prefix.as_str(), local.as_str()) {
-                            ("xacro", "include") if k == "filename" => {
-                                if let Some((pkg, p)) = parse_include_filename(&v) {
-                                    info.includes.push((pkg, p));
-                                }
+                for a in e.attributes().flatten() {
+                    let k = String::from_utf8_lossy(a.key.local_name().as_ref()).into_owned();
+                    let v = String::from_utf8_lossy(a.value.as_ref()).into_owned();
+                    attrs.push((k.clone(), v.clone()));
+                    for r in extract_package_refs(&v) {
+                        package_refs_set.insert(r);
+                    }
+                    match (prefix.as_str(), local.as_str()) {
+                        ("xacro", "include") if k == "filename" => {
+                            if let Some((pkg, p)) = parse_include_filename(&v) {
+                                info.includes.push((pkg, p));
                             }
-                            ("xacro", "property") if k == "name" => info.properties.push(v),
-                            ("xacro", "arg") if k == "name" => info.args.push(v),
-                            ("xacro", "macro") if k == "name" => info.macros.push(v),
-                            (_, "plugin") if k == "filename" => {
-                                if v.contains("gazebo") {
-                                    info.gazebo_plugins.push(v);
-                                } else {
-                                    info.ros2_control_plugins.push(v);
-                                }
-                            }
-                            (_, "joint") if k == "name" => info.ros2_control_joints.push(v),
-                            _ => {}
                         }
+                        ("xacro", "property") if k == "name" => info.properties.push(v),
+                        ("xacro", "arg") if k == "name" => info.args.push(v),
+                        ("xacro", "macro") if k == "name" => info.macros.push(v),
+                        (_, "plugin") if k == "filename" => {
+                            if v.contains("gazebo") {
+                                info.gazebo_plugins.push(v);
+                            } else {
+                                info.ros2_control_plugins.push(v);
+                            }
+                        }
+                        (_, "joint") if k == "name" => info.ros2_control_joints.push(v),
+                        _ => {}
                     }
                 }
             }

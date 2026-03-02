@@ -223,7 +223,7 @@ pub fn scan_cpp_nodes(pkg_dir: &Path, cmake_info: Option<&CmakePackageInfo>) -> 
             Some(t) => t,
             None => continue,
         };
-        let rel = p.strip_prefix(pkg_dir).unwrap_or_else(|_| p).to_path_buf();
+        let rel = p.strip_prefix(pkg_dir).unwrap_or(p).to_path_buf();
         let interfaces = extract_interfaces(&tree, &content);
         if !interfaces.is_empty() {
             let executable = resolve_executable(&rel, cmake_info);

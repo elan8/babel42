@@ -5,6 +5,8 @@
 
 use petgraph::graph::DiGraph;
 use serde::{Deserialize, Serialize};
+use std::convert::Infallible;
+use std::str::FromStr;
 
 // =============================================================================
 // Package manifest (from package.xml)
@@ -22,7 +24,7 @@ pub enum BuildType {
 }
 
 impl BuildType {
-    pub fn from_str(s: &str) -> Self {
+    pub fn parse(s: &str) -> Self {
         match s.trim().to_lowercase().as_str() {
             "ament_cmake" => BuildType::AmentCmake,
             "ament_python" => BuildType::AmentPython,
@@ -30,6 +32,14 @@ impl BuildType {
             "python_distutils" | "python-setuptools" => BuildType::PythonDistutils,
             other => BuildType::Other(other.to_string()),
         }
+    }
+}
+
+impl FromStr for BuildType {
+    type Err = Infallible;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(BuildType::parse(s))
     }
 }
 

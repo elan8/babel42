@@ -7,7 +7,6 @@ use std::fs;
 use std::path::Path;
 use thiserror::Error;
 use tree_sitter::{Node, Parser, Tree};
-use tree_sitter_python;
 
 #[derive(Debug, Error)]
 pub enum LaunchError {
@@ -173,11 +172,7 @@ fn extract_package_and_launch_from_join(node: &Node, src: &str) -> Option<(Strin
             }
             let pkg = pkg?;
             // Typically ["launch", "controller.launch.py"] or similar
-            let launch_file = strings
-                .iter()
-                .filter(|s| s.ends_with(".launch.py"))
-                .next()?
-                .clone();
+            let launch_file = strings.iter().find(|s| s.ends_with(".launch.py"))?.clone();
             return Some((pkg, launch_file));
         }
     }

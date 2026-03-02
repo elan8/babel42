@@ -137,7 +137,7 @@ fn scan_msgs(pkg_dir: &Path) -> Vec<crate::model::MsgDefinition> {
         let Ok(entry) = entry else { continue };
         if entry.file_type().is_file() {
             let p = entry.path();
-            if p.extension().map_or(false, |e| e == "msg") {
+            if p.extension().is_some_and(|e| e == "msg") {
                 if let Ok(m) = parse_msg_file(p) {
                     msgs.push(m);
                 }
@@ -157,7 +157,7 @@ fn scan_srvs(pkg_dir: &Path) -> Vec<crate::model::SrvDefinition> {
         let Ok(entry) = entry else { continue };
         if entry.file_type().is_file() {
             let p = entry.path();
-            if p.extension().map_or(false, |e| e == "srv") {
+            if p.extension().is_some_and(|e| e == "srv") {
                 if let Ok(s) = parse_srv_file(p) {
                     srvs.push(s);
                 }
@@ -173,10 +173,10 @@ fn scan_launch_files(pkg_dir: &Path) -> Vec<LaunchFile> {
         let Ok(entry) = entry else { continue };
         if entry.file_type().is_file() {
             let p = entry.path();
-            if p.extension().map_or(false, |e| e == "py")
+            if p.extension().is_some_and(|e| e == "py")
                 && p.file_stem()
                     .and_then(|s| s.to_str())
-                    .map_or(false, |s| s.ends_with(".launch"))
+                    .is_some_and(|s| s.ends_with(".launch"))
             {
                 if let Ok(info) = parse_launch_file(p) {
                     let rel = p.strip_prefix(pkg_dir).unwrap_or(p).to_path_buf();
@@ -194,7 +194,7 @@ fn scan_xacro_files(pkg_dir: &Path) -> Vec<XacroFile> {
         let Ok(entry) = entry else { continue };
         if entry.file_type().is_file() {
             let p = entry.path();
-            if p.extension().map_or(false, |e| e == "xacro") {
+            if p.extension().is_some_and(|e| e == "xacro") {
                 if let Ok(info) = parse_xacro_file(p) {
                     let rel = p.strip_prefix(pkg_dir).unwrap_or(p).to_path_buf();
                     files.push(XacroFile { path: rel, info });
@@ -215,7 +215,7 @@ fn scan_actions(pkg_dir: &Path) -> Vec<crate::model::ActionDefinition> {
         let Ok(entry) = entry else { continue };
         if entry.file_type().is_file() {
             let p = entry.path();
-            if p.extension().map_or(false, |e| e == "action") {
+            if p.extension().is_some_and(|e| e == "action") {
                 if let Ok(a) = parse_action_file(p) {
                     actions.push(a);
                 }
@@ -234,10 +234,7 @@ fn build_launch_include_graph(packages: &[Package]) -> LaunchIncludeGraph {
         ref_to_idx: &mut HashMap<LaunchRef, petgraph::graph::NodeIndex>,
         r: LaunchRef,
     ) -> petgraph::graph::NodeIndex {
-        ref_to_idx
-            .entry(r.clone())
-            .or_insert_with(|| g.add_node(r))
-            .clone()
+        *ref_to_idx.entry(r.clone()).or_insert_with(|| g.add_node(r))
     }
 
     for pkg in packages {
@@ -302,15 +299,15 @@ fn build_runtime_graph(packages: &[Package]) -> RuntimeGraph {
         for lf in &pkg.launch_files {
             for n in &lf.info.nodes {
                 let key = (n.package.clone(), n.executable.clone());
-                if !node_key_to_idx.contains_key(&key) {
+                node_key_to_idx.entry(key).or_insert_with(|| {
                     let idx = nodes.len();
                     nodes.push(RuntimeNode {
                         package: n.package.clone(),
                         executable: n.executable.clone(),
                         name: n.name.clone(),
                     });
-                    node_key_to_idx.insert(key, idx);
-                }
+                    idx
+                });
             }
         }
     }
@@ -320,15 +317,15 @@ fn build_runtime_graph(packages: &[Package]) -> RuntimeGraph {
         if let Some(ref sp) = pkg.setup_py_info {
             for exec in &sp.entry_points {
                 let key = (pkg.name().to_string(), exec.clone());
-                if !node_key_to_idx.contains_key(&key) {
+                node_key_to_idx.entry(key).or_insert_with(|| {
                     let idx = nodes.len();
                     nodes.push(RuntimeNode {
                         package: pkg.name().to_string(),
                         executable: exec.clone(),
                         name: None,
                     });
-                    node_key_to_idx.insert(key, idx);
-                }
+                    idx
+                });
             }
         }
     }

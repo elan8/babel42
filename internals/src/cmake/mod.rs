@@ -139,7 +139,7 @@ fn looks_like_version(s: &str) -> bool {
     if s.is_empty() {
         return false;
     }
-    s.chars().next().map_or(false, |c| c.is_ascii_digit())
+    s.chars().next().is_some_and(|c| c.is_ascii_digit())
         || s.contains("...")
         || (s.contains('<') || s.contains('>'))
 }

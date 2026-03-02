@@ -6,7 +6,6 @@
 use serde::{Deserialize, Serialize};
 use std::path::Path;
 use tree_sitter::{Node, Parser, Tree};
-use tree_sitter_python;
 use walkdir::WalkDir;
 
 /// Kind of ROS2 communication interface used by a Python node.
@@ -58,17 +57,17 @@ pub fn scan_python_nodes(pkg_dir: &Path, _pkg_name: &str) -> Vec<PythonNodeFile>
             continue;
         }
         let p = entry.path();
-        if p.extension().map_or(true, |e| e != "py") {
+        if p.extension().is_none_or(|e| e != "py") {
             continue;
         }
         // Skip launch files
         if p.file_stem()
             .and_then(|s| s.to_str())
-            .map_or(false, |s| s.ends_with(".launch"))
+            .is_some_and(|s| s.ends_with(".launch"))
         {
             continue;
         }
-        let rel = p.strip_prefix(pkg_dir).unwrap_or_else(|_| p).to_path_buf();
+        let rel = p.strip_prefix(pkg_dir).unwrap_or(p).to_path_buf();
         let content = match std::fs::read_to_string(p) {
             Ok(c) => c,
             Err(_) => continue,
@@ -220,8 +219,8 @@ fn extract_interface_from_call(node: &Node, src: &str) -> Option<PyNodeInterface
         }
     }
 
-    let interface_type = interface_type.unwrap_or_else(|| String::new());
-    let iface_name = iface_name.unwrap_or_else(|| String::new());
+    let interface_type = interface_type.unwrap_or_default();
+    let iface_name = iface_name.unwrap_or_default();
     if interface_type.is_empty() {
         return None;
     }

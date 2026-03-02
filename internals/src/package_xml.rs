@@ -58,12 +58,10 @@ pub fn parse_package_xml_str(content: &str) -> Result<PackageManifest, String> {
                     in_export = true;
                 }
                 current_attrs.clear();
-                for attr in e.attributes() {
-                    if let Ok(a) = attr {
-                        let key = String::from_utf8_lossy(a.key.as_ref()).into_owned();
-                        let val = String::from_utf8_lossy(a.value.as_ref()).into_owned();
-                        current_attrs.insert(key, val);
-                    }
+                for a in e.attributes().flatten() {
+                    let key = String::from_utf8_lossy(a.key.as_ref()).into_owned();
+                    let val = String::from_utf8_lossy(a.value.as_ref()).into_owned();
+                    current_attrs.insert(key, val);
                 }
                 // format is attribute on <package format="2">
                 if tag == "package" {
@@ -147,7 +145,7 @@ pub fn parse_package_xml_str(content: &str) -> Result<PackageManifest, String> {
                     Some("member_of_group") => member_of_groups.push(text),
                     Some("metapackage") if in_export => is_metapackage = true,
                     Some("build_type") if in_export => {
-                        build_types.push(BuildType::from_str(&text));
+                        build_types.push(BuildType::parse(&text));
                     }
                     _ => {}
                 }

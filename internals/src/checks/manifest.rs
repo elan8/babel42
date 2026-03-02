@@ -11,7 +11,7 @@ pub fn check_manifest(project: &Project) -> Vec<Finding> {
             .manifest
             .description
             .as_ref()
-            .map_or(true, |d| d.trim().is_empty())
+            .is_none_or(|d| d.trim().is_empty())
         {
             findings.push(
                 Finding::new(

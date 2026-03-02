@@ -79,7 +79,7 @@ pub fn parse_srv_str(content: &str, path: &Path) -> Result<SrvDefinition, String
         .to_string();
 
     let sections: Vec<&str> = content.splitn(2, "---").collect();
-    let request_section = sections.get(0).copied().unwrap_or("");
+    let request_section = sections.first().copied().unwrap_or("");
     let response_section = sections.get(1).copied().unwrap_or("");
 
     let request: Vec<FieldDef> = request_section
@@ -112,7 +112,7 @@ pub fn parse_action_str(content: &str, path: &Path) -> Result<ActionDefinition, 
         .to_string();
 
     let sections: Vec<&str> = content.split("---").collect();
-    let goal_section = sections.get(0).copied().unwrap_or("");
+    let goal_section = sections.first().copied().unwrap_or("");
     let result_section = sections.get(1).copied().unwrap_or("");
     let feedback_section = sections.get(2).copied().unwrap_or("");
 

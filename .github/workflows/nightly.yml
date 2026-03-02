@@ -32,7 +32,7 @@ jobs:
           shared-key: "babel42"
 
       - name: Fetch fixtures
-        run: ./scripts/fetch_fixtures.sh
+        run: bash ./scripts/fetch_fixtures.sh
 
       - name: Integration tests
         env:
