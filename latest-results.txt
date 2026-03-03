@@ -1,7 +1,7 @@
 [1m[92m    Updating[0m crates.io index
 [1m[92m   Compiling[0m internals v0.1.0 (/home/runner/work/babel42/babel42/internals)
 [1m[92m   Compiling[0m cli v0.1.0 (/home/runner/work/babel42/babel42/cli)
-[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 3.28s
+[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 3.40s
 [1m[92m     Running[0m unittests src/main.rs (target/debug/deps/babel42-00f0ecffd1a3bb05)
 
 running 0 tests
@@ -49,17 +49,17 @@ test setup_py::tests::parse_hyphen_in_name ... ok
 test setup_py::tests::parse_simple_entry_points ... ok
 test workspace::tests::discover_workspace_empty_dir_returns_none ... ok
 test workspace::tests::discover_workspace_finds_packages ... ok
+test checks::integration_tests::check_moveit2_fixture_runs ... ok
 test workspace::tests::discover_workspace_flat_layout ... ok
 test workspace::tests::discover_workspace_root_as_package ... ok
 test workspace::tests::discover_workspace_root_as_package_with_nested ... ok
-test workspace::tests::discover_workspace_skips_colcon_ignore ... ok
 test xacro::tests::parse_include_and_refs ... ok
+test workspace::tests::discover_workspace_skips_colcon_ignore ... ok
 test xacro::tests::parse_ros2_control_plugin_text ... ok
-test checks::integration_tests::check_moveit2_fixture_runs ... ok
-test checks::integration_tests::integration_all_fixtures_analyze_and_check ... ok
 test checks::integration_tests::check_ros2_github_fixtures_run ... ok
+test checks::integration_tests::integration_all_fixtures_analyze_and_check ... ok
 
-test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.72s
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.59s
 
 [1m[92m   Doc-tests[0m internals
 
