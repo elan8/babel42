@@ -1,14 +1,140 @@
 [1m[92m    Updating[0m crates.io index
+[1m[92m Downloading[0m crates ...
+[1m[92m  Downloaded[0m anstyle-query v1.1.5
+[1m[92m  Downloaded[0m block-buffer v0.10.4
+[1m[92m  Downloaded[0m anstyle v1.0.13
+[1m[92m  Downloaded[0m cfg-if v1.0.4
+[1m[92m  Downloaded[0m anstream v0.6.21
+[1m[92m  Downloaded[0m autocfg v1.5.0
+[1m[92m  Downloaded[0m anstyle-parse v0.2.7
+[1m[92m  Downloaded[0m equivalent v1.0.2
+[1m[92m  Downloaded[0m crypto-common v0.1.7
+[1m[92m  Downloaded[0m tree-sitter-language v0.1.7
+[1m[92m  Downloaded[0m same-file v1.0.6
+[1m[92m  Downloaded[0m itoa v1.0.17
+[1m[92m  Downloaded[0m is_terminal_polyfill v1.70.2
+[1m[92m  Downloaded[0m heck v0.5.0
+[1m[92m  Downloaded[0m thiserror-impl v2.0.18
+[1m[92m  Downloaded[0m shlex v1.3.0
+[1m[92m  Downloaded[0m clap_lex v1.0.0
+[1m[92m  Downloaded[0m utf8parse v0.2.2
+[1m[92m  Downloaded[0m strsim v0.11.1
+[1m[92m  Downloaded[0m fixedbitset v0.4.2
+[1m[92m  Downloaded[0m generic-array v0.14.7
+[1m[92m  Downloaded[0m cpufeatures v0.2.17
+[1m[92m  Downloaded[0m thiserror v2.0.18
+[1m[92m  Downloaded[0m zmij v1.0.21
+[1m[92m  Downloaded[0m find-msvc-tools v0.1.9
+[1m[92m  Downloaded[0m unsafe-libyaml v0.2.11
+[1m[92m  Downloaded[0m pest_derive v2.8.6
+[1m[92m  Downloaded[0m proc-macro2 v1.0.106
+[1m[92m  Downloaded[0m clap_derive v4.5.55
+[1m[92m  Downloaded[0m serde_yaml v0.9.34+deprecated
+[1m[92m  Downloaded[0m unicode-ident v1.0.24
+[1m[92m  Downloaded[0m serde v1.0.228
+[1m[92m  Downloaded[0m indexmap v2.13.0
+[1m[92m  Downloaded[0m regex v1.12.3
+[1m[92m  Downloaded[0m hashbrown v0.16.1
+[1m[92m  Downloaded[0m tree-sitter-python v0.25.0
+[1m[92m  Downloaded[0m serde_json v1.0.149
+[1m[92m  Downloaded[0m quick-xml v0.36.2
+[1m[92m  Downloaded[0m clap_builder v4.5.60
+[1m[92m  Downloaded[0m tree-sitter v0.25.10
+[1m[92m  Downloaded[0m chrono v0.4.44
+[1m[92m  Downloaded[0m pest v2.8.6
+[1m[92m  Downloaded[0m aho-corasick v1.1.4
+[1m[92m  Downloaded[0m pest_meta v2.8.6
+[1m[92m  Downloaded[0m memchr v2.8.0
+[1m[92m  Downloaded[0m clap v4.5.60
+[1m[92m  Downloaded[0m serde_core v1.0.228
+[1m[92m  Downloaded[0m regex-automata v0.4.14
+[1m[92m  Downloaded[0m syn v2.0.117
+[1m[92m  Downloaded[0m regex-syntax v0.8.10
+[1m[92m  Downloaded[0m iana-time-zone v0.1.65
+[1m[92m  Downloaded[0m serde_derive v1.0.228
+[1m[92m  Downloaded[0m ryu v1.0.23
+[1m[92m  Downloaded[0m num-traits v0.2.19
+[1m[92m  Downloaded[0m cc v1.2.56
+[1m[92m  Downloaded[0m ucd-trie v0.1.7
+[1m[92m  Downloaded[0m typenum v1.19.0
+[1m[92m  Downloaded[0m quote v1.0.44
+[1m[92m  Downloaded[0m pest_generator v2.8.6
+[1m[92m  Downloaded[0m digest v0.10.7
+[1m[92m  Downloaded[0m walkdir v2.5.0
+[1m[92m  Downloaded[0m version_check v0.9.5
+[1m[92m  Downloaded[0m streaming-iterator v0.1.9
+[1m[92m  Downloaded[0m sha2 v0.10.9
+[1m[92m  Downloaded[0m colorchoice v1.0.4
+[1m[92m  Downloaded[0m petgraph v0.6.5
+[1m[92m  Downloaded[0m tree-sitter-cpp v0.23.4
+[1m[92m   Compiling[0m proc-macro2 v1.0.106
+[1m[92m   Compiling[0m unicode-ident v1.0.24
+[1m[92m   Compiling[0m quote v1.0.44
+[1m[92m   Compiling[0m memchr v2.8.0
+[1m[92m   Compiling[0m shlex v1.3.0
+[1m[92m   Compiling[0m find-msvc-tools v0.1.9
+[1m[92m   Compiling[0m cc v1.2.56
+[1m[92m   Compiling[0m serde_core v1.0.228
+[1m[92m   Compiling[0m tree-sitter-language v0.1.7
+[1m[92m   Compiling[0m hashbrown v0.16.1
+[1m[92m   Compiling[0m zmij v1.0.21
+[1m[92m   Compiling[0m equivalent v1.0.2
+[1m[92m   Compiling[0m syn v2.0.117
+[1m[92m   Compiling[0m indexmap v2.13.0
+[1m[92m   Compiling[0m itoa v1.0.17
+[1m[92m   Compiling[0m serde v1.0.228
+[1m[92m   Compiling[0m serde_json v1.0.149
+[1m[92m   Compiling[0m ucd-trie v0.1.7
+[1m[92m   Compiling[0m autocfg v1.5.0
+[1m[92m   Compiling[0m num-traits v0.2.19
+[1m[92m   Compiling[0m pest v2.8.6
+[1m[92m   Compiling[0m aho-corasick v1.1.4
+[1m[92m   Compiling[0m regex-syntax v0.8.10
+[1m[92m   Compiling[0m serde_derive v1.0.228
+[1m[92m   Compiling[0m tree-sitter v0.25.10
+[1m[92m   Compiling[0m pest_meta v2.8.6
+[1m[92m   Compiling[0m regex-automata v0.4.14
+[1m[92m   Compiling[0m tree-sitter-python v0.25.0
+[1m[92m   Compiling[0m tree-sitter-cpp v0.23.4
+[1m[92m   Compiling[0m thiserror v2.0.18
+[1m[92m   Compiling[0m regex v1.12.3
+[1m[92m   Compiling[0m pest_generator v2.8.6
+[1m[92m   Compiling[0m thiserror-impl v2.0.18
+[1m[92m   Compiling[0m fixedbitset v0.4.2
+[1m[92m   Compiling[0m utf8parse v0.2.2
+[1m[92m   Compiling[0m streaming-iterator v0.1.9
+[1m[92m   Compiling[0m ryu v1.0.23
+[1m[92m   Compiling[0m same-file v1.0.6
+[1m[92m   Compiling[0m iana-time-zone v0.1.65
+[1m[92m   Compiling[0m unsafe-libyaml v0.2.11
+[1m[92m   Compiling[0m serde_yaml v0.9.34+deprecated
+[1m[92m   Compiling[0m chrono v0.4.44
+[1m[92m   Compiling[0m walkdir v2.5.0
+[1m[92m   Compiling[0m anstyle-parse v0.2.7
+[1m[92m   Compiling[0m petgraph v0.6.5
+[1m[92m   Compiling[0m pest_derive v2.8.6
+[1m[92m   Compiling[0m quick-xml v0.36.2
+[1m[92m   Compiling[0m anstyle v1.0.13
+[1m[92m   Compiling[0m is_terminal_polyfill v1.70.2
+[1m[92m   Compiling[0m colorchoice v1.0.4
+[1m[92m   Compiling[0m anstyle-query v1.1.5
+[1m[92m   Compiling[0m anstream v0.6.21
+[1m[92m   Compiling[0m heck v0.5.0
+[1m[92m   Compiling[0m strsim v0.11.1
+[1m[92m   Compiling[0m clap_lex v1.0.0
 [1m[92m   Compiling[0m internals v0.1.0 (/home/runner/work/babel42/babel42/internals)
+[1m[92m   Compiling[0m clap_builder v4.5.60
+[1m[92m   Compiling[0m clap_derive v4.5.55
+[1m[92m   Compiling[0m clap v4.5.60
 [1m[92m   Compiling[0m cli v0.1.0 (/home/runner/work/babel42/babel42/cli)
-[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 8.98s
-[1m[92m     Running[0m unittests src/main.rs (target/debug/deps/babel42-00f0ecffd1a3bb05)
+[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 22.07s
+[1m[92m     Running[0m unittests src/main.rs (target/debug/deps/babel42-8a0066b448a9f820)
 
 running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
-[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/internals-3bbdd3a639bef740)
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/internals-5bb900f84f923b1b)
 
 running 47 tests
 test checks::dep::tests::find_package_missing_reported ... ok
@@ -56,14 +182,14 @@ test workspace::tests::discover_workspace_skips_colcon_ignore ... ok
 test xacro::tests::parse_include_and_refs ... ok
 test xacro::tests::parse_ros2_control_plugin_text ... ok
 test checks::integration_tests::check_moveit2_fixture_runs ... ok
-test checks::integration_tests::check_ros2_github_fixtures_run ... ok
 test checks::integration_tests::integration_all_fixtures_analyze_and_check ... ok
+test checks::integration_tests::check_ros2_github_fixtures_run ... ok
 
-test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.25s
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.47s
 
 [1m[92m   Doc-tests[0m internals
 
 running 0 tests
 
-test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
