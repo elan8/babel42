@@ -1,7 +1,7 @@
 [1m[92m    Updating[0m crates.io index
 [1m[92m   Compiling[0m internals v0.1.0 (/home/runner/work/babel42/babel42/internals)
 [1m[92m   Compiling[0m cli v0.1.0 (/home/runner/work/babel42/babel42/cli)
-[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 2.74s
+[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 2.86s
 [1m[92m     Running[0m unittests src/main.rs (target/debug/deps/babel42-8a0066b448a9f820)
 
 running 0 tests
@@ -59,7 +59,7 @@ test checks::integration_tests::check_moveit2_fixture_runs ... ok
 test checks::integration_tests::check_ros2_github_fixtures_run ... ok
 test checks::integration_tests::integration_all_fixtures_analyze_and_check ... ok
 
-test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.46s
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.40s
 
 [1m[92m   Doc-tests[0m internals
 
